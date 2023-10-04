@@ -1,24 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route('/')
-def raiz():
-    return 'Olá Mundo!'
+@app.route('/', methods=['POST','GET'])
 
-@app.route('/calculadora/<int>:n1/<int>:n2/<string>:operador')
-def calculadora(n1, n2, operacao):
-    if operacao == "soma":
-        resultado = n1 + n2
-    elif operacao == "sub":
-        resultado = n1 - n2
-    elif operacao == "mult":
-        resultado = n1 * n2
-    elif operacao == "div":
-        resultado = n1 / n2
-    else:
-        resultado = "Operação não suportada"
-
-    return '{} {} {} = {}'.format(n1, operacao, n2, resultado)
+def calcular():
+    imc = ''
+    if request.method == 'POST' and 'peso' in request.form and 'altura' in request.form:
+        p = float(request.form.get('peso'))
+        a = float(request.form.get('altura'))
+        imc = round(p / (a*a),2)
+    return render_template('index.html', imc=imc)
 
 app.run()
