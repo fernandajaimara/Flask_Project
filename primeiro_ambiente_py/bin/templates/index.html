@@ -1,0 +1,14 @@
+<html>
+    <body>
+        <form action="/" method="POST">
+            Peso em KG
+            <input type="text" name="peso"><br>
+            Altura em M
+            <input type="text" name="altura">
+            <button type="submit" value="submit">Calcular</button>
+        </form>
+        {% if imc %}
+        <p>Seu IMC é: {{imc}}</p>
+        {%endif%}
+    </body>
+</html>
